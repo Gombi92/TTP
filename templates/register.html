@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Registrace | | GMart{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-center align-items-center" style="margin-top: 25px; margin-bottom: 25px;"> <!-- Odsazení pouze nahoře a dole -->
+        <div class="card p-4 shadow" style="width: 400px;">
+            <h3 class="text-center">Registrace</h3>
+            <form method="post" action="{% url 'register' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">Uživatelské jméno</label>
+                    <input type="text" id="username" name="username" class="form-control" placeholder="Zadejte uživatelské jméno" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Zadejte email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Heslo</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Zadejte heslo" required>
+                </div>
+                <div class="form-group">
+                    <label for="password_confirm">Potvrzení hesla</label>
+                    <input type="password" id="password_confirm" name="password_confirm" class="form-control" placeholder="Znovu zadejte heslo" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Registrovat se</button>
+            </form>
+            <div class="text-center mt-3">
+                <p>Máte již účet? <a href="{% url 'login' %}">Přihlaste se zde</a>.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

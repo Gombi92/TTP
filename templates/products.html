@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Produkty | GMart{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #d3d3c5;
+        }
+        .navbar-custom {
+            background-color: #007BFF;
+        }
+        .navbar-custom .nav-link {
+            color: #FFFFFF;
+        }
+        footer {
+            background-color: #007BFF;
+            color: #FFFFFF;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .sidebar {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-right: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'images/gmlogo.jpg' %}" alt="GM Logo" style="height: 40px;">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Domů</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'products' %}">Zboží</a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contact' %}">Kontakt</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about' %}">O nás</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Přihlášení</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">Registrace</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid mt-5">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 sidebar">
+                <h4>Kategorie</h4>
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="#">Elektronika</a></li>
+                    <li class="list-group-item"><a href="#">Oblečení</a></li>
+                    <li class="list-group-item"><a href="#">Knihy</a></li>
+                </ul>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9">
+                {% block content %}
+                <h2>Produkty</h2>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img class="card-img-top" src="{% static 'images/product1.jpg' %}" alt="Produkt 1">
+                            <div class="card-body">
+                                <h5 class="card-title">Produkt 1</h5>
+                                <p class="card-text">Toto je popis produktu 1.</p>
+                                <a href="#" class="btn btn-primary">Koupit</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img class="card-img-top" src="{% static 'images/product2.jpg' %}" alt="Produkt 2">
+                            <div class="card-body">
+                                <h5 class="card-title">Produkt 2</h5>
+                                <p class="card-text">Toto je popis produktu 2.</p>
+                                <a href="#" class="btn btn-primary">Koupit</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img class="card-img-top" src="{% static 'images/product3.jpg' %}" alt="Produkt 3">
+                            <div class="card-body">
+                                <h5 class="card-title">Produkt 3</h5>
+                                <p class="card-text">Toto je popis produktu 3.</p>
+                                <a href="#" class="btn btn-primary">Koupit</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 My E-commerce Site</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
