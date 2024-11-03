@@ -25,7 +25,6 @@ SECRET_KEY = 'django-insecure-fh-7y3_^(%@8d53hk&+dmzth#^=pig4u0*#d^&7d_uh5b0)3pl
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -55,7 +54,7 @@ ROOT_URLCONF = 'ecommerce_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # Tady přidáš cestu ke složce templates
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,10 +76,10 @@ WSGI_APPLICATION = 'ecommerce_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ecommerce_db',         # Název tvé databáze
+        'NAME': 'ecommerce_db',         # Název databáze
         'USER': 'postgres',       # Uživatelské jméno PostgreSQL
-        'PASSWORD': 'Lupara8892',         # Heslo pro uživatele
-        'HOST': 'localhost',             # Pokud běžíš PostgreSQL lokálně
+        'PASSWORD': '',         # Heslo pro uživatele
+        'HOST': 'localhost',             # PostgreSQL lokálně
         'PORT': '5432',                  # Výchozí port PostgreSQL
     }
 }
@@ -121,10 +120,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'  # Toto je relativní URL pro přístup ke statickým souborům na webu
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # Absolutní cesta k tvým statickým souborům
+STATICFILES_DIRS = [BASE_DIR / "static"]  # Absolutní cesta k tvým statickým souborům
 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+

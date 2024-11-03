@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="{% url 'home' %}">
+                <img class="img1" src="{% static 'images/gmlogo.jpg' %}" alt="gmlogo">
+            </a>
+            <div class="btn-cont1">
+                <a class="btn-1" href="{% url 'home' %}">Hlavní stránka</a>
+                <a class="btn-1" href="{% url 'products' %}">Zboží</a>
+                <a class="btn-1" href="{% url 'contact' %}">Kontakt</a>
+                <a class="btn-1" href="{% url 'about' %}">O nás</a>
+            </div>
+            <div class="btn-cont2">
+                <a class="btn-2" href="{% url 'login' %}">Přihlášení</a>
+                <a class="btn-2" href="{% url 'register' %}">Registrace</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="levy-panel-1">
+            {% block levy_panel_1 %}
+            {% endblock %}
+        </div> 
+            
+        <div class="levy-panel-2">
+            {% block levy_panel_2 %}
+            {% endblock %}
+        </div>
+
+        <div class="main-panel">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+        <div class="pravy-panel">
+            {% block pravy_panel %}
+            {% endblock %}
+        </div>
+    </main>    
+    <footer>
+        &copy; 2024 Gombi
+    </footer>
+</body>
+</html>
