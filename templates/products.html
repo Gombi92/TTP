@@ -3,6 +3,17 @@
 {% block title %}Hlavní stránka | GMart{% endblock %}
 
 {% block content %}
-    <h1>Zboží</h1>
+<h1>Seznam produktů</h1>
+    <ul>
+        {% for product in products %}
+            <li>
+                <h2>{{ product.name }}</h2>
+                <p>Cena: {{ product.sell_price }} Kč</p>
+                <p>{{ product.description }}</p>
+            </li>
+        {% empty %}
+            <p>Žádné produkty nebyly nalezeny.</p>
+        {% endfor %}
+    </ul>
 {% endblock %}
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
@@ -23,8 +24,15 @@
                 <a class="btn-1" href="{% url 'about' %}">O nás</a>
             </div>
             <div class="btn-cont2">
-                <a class="btn-2" href="{% url 'login' %}">Přihlášení</a>
-                <a class="btn-2" href="{% url 'register' %}">Registrace</a>
+                {% if user.is_authenticated %}
+                    <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-2">Odhlášení</button>
+                    </form>
+                {% else %}
+                    <a class="btn-2" href="{% url 'login' %}">Přihlášení</a>
+                    <a class="btn-2" href="{% url 'register' %}">Registrace</a>
+                {% endif %}
             </div>
         </div>
     </header>
@@ -46,8 +54,11 @@
         </div>
 
         <div class="pravy-panel">
-            {% block pravy_panel %}
-            {% endblock %}
+            {% if user.is_authenticated %}
+                <h3>Jste přihlášen jako: {{ user.username }}!</h3>
+            {% else %}
+                <h3>Nejste přihlášen.</h3>
+            {% endif %}
         </div>
     </main>    
     <footer>

@@ -9,7 +9,7 @@ body,html{
 
 body {
     
-    background-image: url("static/images/background_img2.jpg");
+    background-image: url("static/images/background_img1.jpg");
     
 }
 
@@ -170,8 +170,8 @@ footer {
     margin-left: 5px;
     padding: 10px;
 }
+
 .btn-1:hover {
-   
     color: white;
     background-color: #2453e0;
 }
@@ -207,6 +207,3 @@ h2{
 h3{
     font-size: 1rem;
 }
-
-
-

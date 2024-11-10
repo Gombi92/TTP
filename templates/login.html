@@ -3,5 +3,14 @@
 {% block title %}Hlavní stránka | GMart{% endblock %}
 
 {% block content %}
-    <h1>Přihlašovací stránka</h1>
+<div class="container mt-5">
+    <h2>Přihlašovací stránka</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Přihlásit se</button>
+    </form>
+    <p>Nemáte účet? <a href="{% url 'register' %}">Zaregistrujte se zde</a>.</p>
+</div>
+
 {% endblock %}

@@ -1,16 +1,39 @@
-from django.shortcuts import render
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import login, authenticate
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from products.models import Product
 
 def login_view(request):
-    return render(request, 'login.html')
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            messages.success(request, 'Úspěšně jste se přihlásili!')
+            return redirect('home')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'login.html', {'form': form})
 
 def register_view(request):
-    return render(request, 'register.html')
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, 'Úspěšně jste se zaregistrovali!')
+            return redirect('home')
+    else:
+        form = UserCreationForm()
+    return render(request, 'register.html', {'form': form})
 
 def home(request):
     return render(request, 'home.html')
 
 def products(request):
-    return render(request, 'products.html')
+    products = Product.objects.all()  # Načteme všechny produkty
+    return render(request, 'products.html', {'products': products})
 
 def about(request):
     return render(request, 'about.html')
