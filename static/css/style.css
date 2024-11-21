@@ -9,7 +9,7 @@ body,html{
 
 body {
     
-    background-image: url("static/images/background_img2.jpg");
+    background-image: url("static/images/background_img1.jpg");
     
 }
 
@@ -43,8 +43,10 @@ header {
     border-right: 2px solid black;
     border-left: 2px solid black;
     border-bottom: 2px solid black;
+    transition: opacity 0.3s ease;
    
 }
+
 
 main {
     display: flex;
@@ -104,18 +106,30 @@ footer {
 
 .main-panel {
     display: flex;
+    align-content: flex-start;
     background-color: #B7B29E;
     height: calc(100vh - 84px);
     position: fixed;
     margin: 3px;
     top: 65px;
-    
     right: 179px;
     left: 214px;
     border: 2px solid black ;
     overflow-y: auto;
-    
-    justify-content: center;
+    flex-wrap: wrap;
+    padding-left: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+}
+
+.item1{
+    border: 2px solid black;
+    margin: 5px;
+    margin-left: 5px;
+    padding: 10px;
+    width: 140px;
+    height: 140px;
 }
 
 .pravy-panel {
@@ -139,11 +153,7 @@ footer {
     flex-direction: row;
     margin-right: auto;
     height: 40px;
-    margin-left: 10px;
-    
-    
-    
-    
+    margin-left: 10px;    
 }
 
 .btn-cont2{
@@ -152,13 +162,9 @@ footer {
     background-color: #007BFF;
     margin-right: 7px;
     margin-bottom: 5px;
-    
-
-    
-    
 }
 
-.btn-1 {
+.btn-1{
     font-size: 1.2rem;
     background-color: #007BFF;
     color: #FFFFFF;
@@ -171,9 +177,11 @@ footer {
     padding: 10px;
 }
 .btn-1:hover {
-   
-    color: white;
     background-color: #2453e0;
+}
+
+.btn-1:active {
+    border: 2px solid white ;
 }
 
 .btn-2 {
@@ -187,8 +195,6 @@ footer {
     padding-right: 6px;
     margin: 2.5px;
     border-radius:10px;
-    
-    
 }
 .btn-2:hover {
     
@@ -196,16 +202,30 @@ footer {
     background-color: #2453e0;
   }
 
-h1{
-    font-size: 2rem;
+.active{
+    background-color: #2453e0;
 }
 
-h2{
-    font-size: 1.5rem
+h1{
+    font-size: x-large;
+}
+
+h2 {
+    font-size: large;
+}
+
+h2item{
+    font-size: large;
+    border: 2px solid black;
+    padding: 3px;
 }
 
 h3{
-    font-size: 1rem;
+    font-size: medium;
+}
+
+h4{
+    font-size: xx-small;
 }
 
 

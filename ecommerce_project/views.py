@@ -1,8 +1,9 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from products.models import Product
+from products.models import Product, Subcategory, Category
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -33,8 +34,13 @@ def home(request):
 
 def products(request):
     products = Product.objects.all()  # Načteme všechny produkty
-    return render(request, 'products.html', {'products': products})
-
+    categories = Category.objects.all()  # Načteme všechny kategorie
+    subcategories = Subcategory.objects.all()  # Načteme všechny podkategorie
+    return render(request, 'products.html', {
+        'products': products,
+        'categories': categories,
+        'subcategories': subcategories
+    })
 def about(request):
     return render(request, 'about.html')
 

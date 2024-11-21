@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
-
+{% load active_link_tags %}
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
@@ -18,11 +18,12 @@
                 <img class="img1" src="{% static 'images/gmlogo.jpg' %}" alt="gmlogo">
             </a>
             <div class="btn-cont1">
-                <a class="btn-1" href="{% url 'home' %}">Hlavní stránka</a>
-                <a class="btn-1" href="{% url 'products' %}">Zboží</a>
-                <a class="btn-1" href="{% url 'contact' %}">Kontakt</a>
-                <a class="btn-1" href="{% url 'about' %}">O nás</a>
+                <a class="btn-1 {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">Hlavní stránka</a>
+                <a class="btn-1 {% if request.path == '/products/' %}active{% endif %}" href="{% url 'products' %}">Zboží</a>
+                <a class="btn-1 {% if request.path == '/contact/' %}active{% endif %}" href="{% url 'contact' %}">Kontakt</a>
+                <a class="btn-1 {% if request.path == '/about/' %}active{% endif %}" href="{% url 'about' %}">O nás</a>
             </div>
+
             <div class="btn-cont2">
                 {% if user.is_authenticated %}
                     <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: inline;">

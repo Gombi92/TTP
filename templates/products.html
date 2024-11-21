@@ -1,19 +1,28 @@
 {% extends "base.html" %}
 
-{% block title %}Hlavní stránka | GMart{% endblock %}
+{% block title %}Zboží | GMart{% endblock %}
+
+{% block levy_panel_1 %}
+    <h3>Kategorie</h3>
+{% endblock %}
+
+{% block levy_panel_2 %}
+    <h3>Podkategorie</h3>
+{% endblock %}
 
 {% block content %}
-<h1>Seznam produktů</h1>
-    <ul>
-        {% for product in products %}
-            <li>
-                <h2>{{ product.name }}</h2>
-                <p>Cena: {{ product.sell_price }} Kč</p>
-                <p>{{ product.description }}</p>
-            </li>
-        {% empty %}
-            <p>Žádné produkty nebyly nalezeny.</p>
-        {% endfor %}
-    </ul>
+{% for product in products %}
+<div class="item1">
+    <h2item>{{ product.name }}</h2item>
+        <h3>Cena: {{ product.sell_price }} Kč</h3>
+        <h4>{{ product.description }}</h4>
+        </div>
+
+    {% empty %}
+    <p>Žádné produkty nebyly nalezeny.</p>
+
+
+
+{% endfor %}
 {% endblock %}
 
