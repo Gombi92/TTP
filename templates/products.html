@@ -4,18 +4,33 @@
 
 {% block levy_panel_1 %}
     <h3>Kategorie</h3>
+     <ul>
+        {% for category in categories %}
+            <li>
+                <a href="?category={{ category.id }}">{{ category.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}
 
 {% block levy_panel_2 %}
     <h3>Podkategorie</h3>
+    <ul>
+        {% for subcategory in subcategories %}
+            <li>{{ subcategory.name }}</li>
+        {% empty %}
+            <li>Žádné podkategorie k zobrazení.</li>
+        {% endfor %}
+    </ul>
+
 {% endblock %}
 
 {% block content %}
 {% for product in products %}
 <div class="item1">
     <h2item>{{ product.name }}</h2item>
-        <h3>Cena: {{ product.sell_price }} Kč</h3>
-        <h4>{{ product.description }}</h4>
+        <h3>Kategorie: {{ product.category.name }}</h3>
+        <h4>Podkategorie: {{ product.subcategory.name }}</h4>
         </div>
 
     {% empty %}
