@@ -40,13 +40,36 @@
 
     <main>
         <div class="levy-panel-1">
-            {% block levy_panel_1 %}
-            {% endblock %}
+            <div>
+        <h3>Kategorie</h3>
+        <ul>
+            {% for category in base_categories %}
+            <li>
+                <a href="{% url 'products' %}?category={{ category.id }}" class="btn-lp1 {% if category.id == selected_category_id %}active{% endif %}">
+                    {{ category.name }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+        </div>
         </div> 
             
         <div class="levy-panel-2">
-            {% block levy_panel_2 %}
-            {% endblock %}
+         <div>
+        <h3>Podkategorie</h3>
+        <ul>
+            {% for subcategory in base_subcategories %}
+                <li>
+                    <a href="?category={{ subcategory.category.id }}&subcategory={{ subcategory.id }}" class="btn-lp2 {% if subcategory.id == selected_subcategory_id %}active{% endif %}">
+                        {{ subcategory.name }}
+                    </a>
+                </li>
+            {% empty %}
+                <li>Vyberte kategorii</li>
+            {% endfor %}
+        </ul>
+    </div>
+    </div>
         </div>
 
         <div class="main-panel">
@@ -63,7 +86,7 @@
         </div>
     </main>    
     <footer>
-        &copy; 2024 Gombi
+        &copy; 2024 Team7
     </footer>
 </body>
 </html>

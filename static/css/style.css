@@ -18,7 +18,7 @@ header {
     align-items: center;
     flex-wrap: wrap;
     flex-direction: row;
-    background-color: #007BFF;
+    background-color: #2E2E2E;
     color: #FFFFFF;
     width: 100%;
     position: fixed; 
@@ -63,7 +63,7 @@ main {
 footer {
     display: flex;
     flex-direction: column;
-    background-color: #007BFF;
+    background-color: #2E2E2E;
     color: #FFFFFF;
     text-align: center;
     position: fixed;
@@ -76,7 +76,7 @@ footer {
 
 .levy-panel-1 {
     display: flex;
-    background-color: #35AD56;
+    background-color: #2E2E2E;
     color: #FFFFFF;
     width: 107px;
     height: 100vh;
@@ -89,16 +89,16 @@ footer {
 }
 
 .levy-panel-1 .btn-lp1.active {
-    background-color: #2453e0;
+    background-color: #525252;
 }
 
 .levy-panel-2 .btn-lp2.active {
-    background-color: #108033;
+    background-color: #525252;
 }
 
 .levy-panel-2 {
     display: flex;
-    background-color: #007BFF;
+    background-color: #2E2E2E;
     color: #FFFFFF;
     width: 107px;
     height: 100vh;
@@ -117,7 +117,7 @@ footer {
     text-align: center;
     text-decoration: none;
     font-size: 1rem;
-    background-color: #007BFF;
+    background-color: #2E2E2E;
     color: white;
     border-radius: 3px;
     border: 1px solid black;
@@ -126,7 +126,7 @@ footer {
 }
 
 .btn-lp1:hover {
-    background-color: #2453e0;
+    background-color: #525252;
 }
 
 .btn-lp1:active{
@@ -140,7 +140,7 @@ footer {
     text-align: center;
     text-decoration: none;
     font-size: 1rem;
-    background-color: #35AD56;
+    background-color: #2E2E2E;
     color: white;
     border-radius: 3px;
     border: 1px solid black;
@@ -149,7 +149,7 @@ footer {
 }
 
 .btn-lp2:hover {
-    background-color: #108033;
+    background-color: #525252;
 }
 
 .btn-lp2:active{
@@ -168,7 +168,7 @@ footer {
 .main-panel {
     display: flex;
     align-content: flex-start;
-    background-color: #B7B29E;
+    background-color: #E8E8E8;
     height: calc(100vh - 84px);
     position: fixed;
     margin: 3px;
@@ -189,11 +189,12 @@ footer {
     flex-direction: column;
     justify-content: space-between;
     border: 2px solid black;
-    margin: 5px;
-    width: 150px;
-    height: 149px;
+    margin: 3px;
+    width: 153px;
+    height: 153px;
     text-align: center;
-    background-color: #d4d3cd;
+    background-color: #525252;
+    color: white;
 
 }
 .product-name {
@@ -209,25 +210,28 @@ footer {
 
 }
 
+.product-image-cont{
+    background-color: rgba(221, 217, 217, 0.86);
+}
+
 .product-image {
-    width: 100%;
-    height: 96px;
-    align-items: center;
-    justify-content: center;
+    width: 133px;
+    height: 100px;
     display: flex;
+    margin: 0 auto;
 }
 
 .product-price {
-    font-size: 14px;
+    font-size: 10px;
     font-weight: bold;
-    color: green;
+    color: #0ac319;
     border-top: 1px solid black;
     bottom: 0;
 }
 
 .pravy-panel {
     display: flex;
-    background-color: #B7B29E;
+    background-color: #525252;
     width: 180px;
     height: 100vh;
     top: 68px;
@@ -236,13 +240,13 @@ footer {
     border: 2px solid black ;
     justify-content: center;
     text-align: center;
+    color: #FFFFFF;
 
 }
 
 .btn-cont1{
     display: flex;
     align-items: center;
-    background-color: #007BFF;
     gap: 10px;
     flex-direction: row;
     margin-right: auto;
@@ -253,14 +257,14 @@ footer {
 .btn-cont2{
     display: flex;
     flex-direction: column;
-    background-color: #007BFF;
+
     margin-right: 7px;
     margin-bottom: 5px;
 }
 
 .btn-1{
     font-size: 1.2rem;
-    background-color: #007BFF;
+    background-color: #2E2E2E;
     color: #FFFFFF;
     border: 0;
     align-content: center;
@@ -271,7 +275,7 @@ footer {
     padding: 10px;
 }
 .btn-1:hover {
-    background-color: #2453e0;
+    background-color: #525252;
 }
 
 .btn-1:active {
@@ -281,7 +285,7 @@ footer {
 .btn-2 {
     text-decoration: none;
     font-size: 1rem;
-    background-color: #007BFF;
+    background-color: #525252;
     color: #FFFFFF;
     border: 1px solid white;
     padding: 2px;
@@ -293,11 +297,11 @@ footer {
 .btn-2:hover {
     
     color: white;
-    background-color: #2453e0;
+    background-color: #2E2E2E;
   }
 
 .active{
-    background-color: #2453e0;
+    background-color: #525252;
 }
 
 h1{
@@ -316,6 +320,57 @@ h4{
     font-size: xx-small;
 }
 
+.product-detail-container{
+    display: flex;
+    margin: 0 auto;
+
+}
+
+.product-detail {
+    display: flex;
+    flex-direction: column;
+    width: 490px;
+    height: auto;
+    margin-top: 10px;
+    border: 1.5px solid black;
+    border-radius: 1px;
+    background-color: #d4d3cd;
+    text-align: center;
+
+}
+
+.product-detail img {
+    width: 400px;
+    height: 300px;
+    z-index: 2;
+
+}
+
+.product-detail-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 302px; /* Výška kontejneru */
+    background-color: rgba(221, 217, 217, 0.86);
+    position: relative;
+    border-bottom: 1.5px solid black;
+
+}
+
+
+.product-detail h1 {
+    display: flex;
+    font-size: 1.3rem;
+    border-bottom: 1.5px solid black;
+    width: 100%;
+    height: 30px;
+    margin-bottom: 0px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0px;
+    z-index: 3;
+}
 
 
 
