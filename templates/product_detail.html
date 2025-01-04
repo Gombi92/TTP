@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.name }} | GMart{% endblock %}
+
+{% block content %}
+<div class="product-detail">
+    <h1>{{ product.name }}</h1>
+    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+    <p><strong>Popis:</strong> {{ product.description }}</p>
+    <p><strong>Cena:</strong> {{ product.sell_price }} Kč</p>
+    <a href="/products/" class="btn">Zpět na produkty</a>
+</div>
+{% endblock %}

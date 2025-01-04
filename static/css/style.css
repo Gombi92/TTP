@@ -71,7 +71,6 @@ footer {
     width: 100%;
     height: 18px;
     border-top: 2px solid black;
-    
 }
 
 
@@ -86,7 +85,15 @@ footer {
     border: 2px solid black ;
     left: 0;
     flex-direction: column;
-    
+    text-align: center;
+}
+
+.levy-panel-1 .btn-lp1.active {
+    background-color: #2453e0;
+}
+
+.levy-panel-2 .btn-lp2.active {
+    background-color: #108033;
 }
 
 .levy-panel-2 {
@@ -100,8 +107,62 @@ footer {
     border: 2px solid black ;
     flex-direction: column;
     left: 108px;
-    
-    
+    text-align: center;
+}
+
+.btn-lp1{
+    display: inline-block;
+    padding: 1px;
+    margin: 2px 5px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1rem;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 3px;
+    border: 1px solid black;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    width: 85px;
+}
+
+.btn-lp1:hover {
+    background-color: #2453e0;
+}
+
+.btn-lp1:active{
+    border: 2px solid white ;
+}
+
+.btn-lp2{
+    display: inline-block;
+    padding: 1px;
+    margin: 2px 5px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1rem;
+    background-color: #35AD56;
+    color: white;
+    border-radius: 3px;
+    border: 1px solid black;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    width: 85px;
+}
+
+.btn-lp2:hover {
+    background-color: #108033;
+}
+
+.btn-lp2:active{
+    border: 2px solid white ;
+}
+
+.levy-panel-1 ul, .levy-panel-2 ul {
+    list-style: none;
+    padding: 2px;
+}
+
+.levy-panel-1 li, .levy-panel-2 li {
+    margin-bottom: 2px;
 }
 
 .main-panel {
@@ -124,12 +185,44 @@ footer {
 }
 
 .item1{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     border: 2px solid black;
     margin: 5px;
-    margin-left: 5px;
-    padding: 10px;
-    width: 140px;
-    height: 140px;
+    width: 150px;
+    height: 149px;
+    text-align: center;
+    background-color: #d4d3cd;
+
+}
+.product-name {
+    font-size: 9px;
+    font-weight: bold;
+
+    border-bottom: 1px solid black;
+    height: 33px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+}
+
+.product-image {
+    width: 100%;
+    height: 96px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.product-price {
+    font-size: 14px;
+    font-weight: bold;
+    color: green;
+    border-top: 1px solid black;
+    bottom: 0;
 }
 
 .pravy-panel {
@@ -141,8 +234,9 @@ footer {
     position: fixed;
     right: 0;
     border: 2px solid black ;
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
+    text-align: center;
+
 }
 
 .btn-cont1{
@@ -214,12 +308,6 @@ h2 {
     font-size: large;
 }
 
-h2item{
-    font-size: large;
-    border: 2px solid black;
-    padding: 3px;
-}
-
 h3{
     font-size: medium;
 }
@@ -227,6 +315,7 @@ h3{
 h4{
     font-size: xx-small;
 }
+
 
 
 

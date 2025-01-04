@@ -3,41 +3,52 @@
 {% block title %}Zboží | GMart{% endblock %}
 
 {% block levy_panel_1 %}
-    <h3>Kategorie</h3>
-     <ul>
-        {% for category in categories %}
-            <li>
-                <a href="?category={{ category.id }}">{{ category.name }}</a>
-            </li>
-        {% endfor %}
-    </ul>
+
+    <div>
+        <h3>Kategorie</h3>
+        <ul>
+            {% for category in categories %}
+                <li>
+                   <a href="?category={{ category.id }}" class="btn-lp1 {% if category.id == selected_category_id %}active{% endif %}">
+        {{ category.name }}
+    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
 
 {% block levy_panel_2 %}
-    <h3>Podkategorie</h3>
-    <ul>
-        {% for subcategory in subcategories %}
-            <li>{{ subcategory.name }}</li>
-        {% empty %}
-            <li>Žádné podkategorie k zobrazení.</li>
-        {% endfor %}
-    </ul>
-
+    <div>
+        <h3>Podkategorie</h3>
+        <ul>
+            {% for subcategory in subcategories %}
+                <li>
+                    <a href="?category={{ subcategory.category.id }}&subcategory={{ subcategory.id }}" class="btn-lp2 {% if subcategory.id == selected_subcategory_id %}active{% endif %}">
+                        {{ subcategory.name }}
+                    </a>
+                </li>
+            {% empty %}
+                <li>Vyberte kategorii</li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
 
 {% block content %}
-{% for product in products %}
-<div class="item1">
-    <h2item>{{ product.name }}</h2item>
-        <h3>Kategorie: {{ product.category.name }}</h3>
-        <h4>Podkategorie: {{ product.subcategory.name }}</h4>
+    {% for product in products %}
+
+        <div class="item1">
+            <a href="{% url 'product_detail' product.id %}" style="text-decoration: none; color: inherit;">
+                <div class="product-name">{{ product.name }}</div>
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+                <div class="product-price">{{ product.sell_price }},-Kč</div>
+            </a>
         </div>
 
-    {% empty %}
-    <p>Žádné produkty nebyly nalezeny.</p>
+            {% empty %}
+                <p>Žádné produkty nebyly nalezeny.</p>
+    {% endfor %}
 
-
-
-{% endfor %}
 {% endblock %}
 
