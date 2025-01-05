@@ -156,6 +156,10 @@ footer {
     border: 2px solid white ;
 }
 
+.btn-lp1, .btn-lp2 {
+    height: auto;
+}
+
 .levy-panel-1 ul, .levy-panel-2 ul {
     list-style: none;
     padding: 2px;

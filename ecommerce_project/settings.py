@@ -81,11 +81,11 @@ WSGI_APPLICATION = 'ecommerce_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ecommerce_db',         # Název databáze
-        'USER': 'postgres',       # Uživatelské jméno PostgreSQL
-        'PASSWORD': 'Lupara8892',         # Heslo pro uživatele
-        'HOST': 'localhost',             # PostgreSQL lokálně
-        'PORT': '5432',                  # Výchozí port PostgreSQL
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'N0YLFabesa60wN9u',
+        'HOST': 'exultantly-feasible-cardinal.data-1.euc1.tembo.io',
+        'PORT': '5432',
     }
 }
 

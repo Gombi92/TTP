@@ -4,7 +4,7 @@ from django.utils.html import format_html
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'sell_price', 'buy_price', 'created_at', 'category', 'image_preview')
+    list_display = ('name', 'sell_price', 'created_at', 'category', 'image_preview')
     search_fields = ('name', 'description')
     list_filter = ('created_at', 'category')
 
