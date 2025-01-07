@@ -1,9 +1,19 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Zboží | GMart{% endblock %}
 
 {% block content %}
+<div class="main-top-box">
+    <div class="style-switcher">
+        <img id="style1-icon" src="{% static 'images/icon1.png' %}" alt="Styl 1" class="style-icon">
+        <img id="style2-icon" src="{% static 'images/icon2.png' %}" alt="Styl 2" class="style-icon">
+    </div>
+</div>
+
+<div id="products-container">
     {% for product in products %}
+
 
         <div class="item1">
             <a href="{% url 'product_detail' product.id %}" style="text-decoration: none; color: inherit;">
@@ -20,6 +30,35 @@
             {% empty %}
                 <p>Žádné produkty nebyly nalezeny.</p>
     {% endfor %}
-
+</div>
 {% endblock %}
 
+{% block extra_scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const container = document.getElementById('products-container');
+        const items = container.querySelectorAll('.item1, .item2');
+        const style1Icon = document.getElementById('style1-icon');
+        const style2Icon = document.getElementById('style2-icon');
+
+        const savedStyle = localStorage.getItem('productStyle') || 'item1';
+        items.forEach(item => {
+            item.className = savedStyle;
+        });
+
+        style1Icon.addEventListener('click', function () {
+            items.forEach(item => {
+                item.className = 'item1';
+            });
+            localStorage.setItem('productStyle', 'item1');
+        });
+
+        style2Icon.addEventListener('click', function () {
+            items.forEach(item => {
+                item.className = 'item2';
+            });
+            localStorage.setItem('productStyle', 'item2');
+        });
+    });
+</script>
+{% endblock %}

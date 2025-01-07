@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 {% load static %}
 {% load active_link_tags %}
+
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
         {% block title %}
+
         {% endblock %}
     </title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -39,6 +41,15 @@
     </header>
 
     <main>
+
+        {% if messages %}
+            <ul class="messages">
+            {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+
         <div class="levy-panel-1">
             <div>
         <h3>Kategorie</h3>
@@ -52,7 +63,7 @@
             {% endfor %}
         </ul>
         </div>
-        </div> 
+
             
         <div class="levy-panel-2">
          <div>
@@ -80,6 +91,7 @@
         <div class="pravy-panel">
             {% if user.is_authenticated %}
                 <h3>Jste přihlášen jako: {{ user.username }}!</h3>
+                <a href="{% url 'user_profile' user.id %}">Můj účet</a>
             {% else %}
                 <h3>Nejste přihlášen.</h3>
             {% endif %}
@@ -89,4 +101,27 @@
         &copy; 2024 Team7
     </footer>
 </body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        const messages = document.querySelector('.messages');
+        if (messages) {
+
+            setTimeout(() => {
+                messages.style.transition = 'opacity 0.5s ease';
+                messages.style.opacity = '0';
+
+                setTimeout(() => {
+                    messages.remove();
+                }, 500);
+            }, 3000);
+        }
+    });
+
+</script>
+
+{% block extra_scripts %}
+{% endblock %}
+
 </html>

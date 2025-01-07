@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Můj košík | GMart{% endblock %}
+
+{% block content %}
+<div class="cart-container">
+    <h2>Váš košík</h2>
+
+    {% if cart_items %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Produkt</th>
+                    <th>Cena</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                    <tr>
+                        <td>{{ item.product.name }}</td>
+                        <td>{{ item.product.sell_price }} Kč</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p><strong>Celková cena:</strong> {{ total_price }} Kč</p>
+    {% else %}
+        <p>Váš košík je prázdný.</p>
+    {% endif %}
+</div>
+{% endblock %}

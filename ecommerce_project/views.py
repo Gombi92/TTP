@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
@@ -27,6 +27,11 @@ def register_view(request):
     else:
         form = UserCreationForm()
     return render(request, 'register.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    messages.success(request, 'Úspěšně jste se odhlásili!')
+    return redirect('home')
 
 def home(request):
     return render(request, 'home.html')

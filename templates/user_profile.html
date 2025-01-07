@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Můj účet | GMart{% endblock %}
+
+{% block content %}
+    <h1>Vítejte na svém profilu, {{ user.username }}!</h1>
+
+    <p><strong>Jméno:</strong> {{ user.first_name }}</p>
+    <p><strong>Příjmení:</strong> {{ user.last_name }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Datum registrace:</strong> {{ user.date_joined }}</p>
+
+
+{% endblock %}
