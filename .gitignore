@@ -1,0 +1,17 @@
+*.log
+*.pot
+__pycache__/
+*.pyc
+*.swp
+*.swo
+*.swn
+*.bak
+venv/
+.venv/
+db.sqlite3
+.idea/
+.vscode/
+.DS_Store
+*.tmp
+*.temp
+desktop.ini
