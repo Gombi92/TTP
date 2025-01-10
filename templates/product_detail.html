@@ -10,9 +10,9 @@
             <img src="{{ product.image.url }}" alt="{{ product.name }}">
         </div>
         <p><strong>Popis:</strong> {{ product.description }}</p>
-            <form action="{% url 'add_to_cart' product.id %}" method="POST">
-                {% csrf_token %}
-                <button type="submit" class="btn-2">Přidat do košíku</button>
+            <form id="add-to-cart-form" data-product-id="{{ product.id }}" method="POST">
+            {% csrf_token %}
+            <button type="button" class="btn-2" onclick="addToCart(event)">Přidat do košíku</button>
             </form>
         <p><strong>Cena:</strong> {{ product.sell_price }} Kč</p>
         <a href="/products/" class="btn-2">Zpět na produkty</a>

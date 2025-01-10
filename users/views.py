@@ -3,6 +3,9 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404
 from .models import Cart, CartItem, Product
+from django.contrib import messages
+from django.contrib.messages import get_messages
+
 
 @login_required
 def user_profile(request, user_id):
@@ -48,6 +51,7 @@ def get_or_create_cart(request):
 
 
 def add_to_cart(request, product_id):
+
     if request.method == "POST":
         # Načtení produktu nebo vyvolání chyby 404, pokud neexistuje
         product = get_object_or_404(Product, id=product_id)
@@ -58,11 +62,18 @@ def add_to_cart(request, product_id):
         # Přidání položky do košíku
         cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
         if not created:
-            return JsonResponse({'message': 'Product already in cart'}, status=400)
+            messages.warning(request, f"Produkt '{product.name}' je již v košíku.")
+        else:
+            messages.success(request, f"Produkt '{product.name}' byl úspěšně přidán do košíku.")
 
-        return JsonResponse({'message': 'Product added to cart'}, status=200)
+        # Získání zpráv z Django messages a vrácení v JSON odpovědi
+        storage = get_messages(request)
+        message_list = [{'level': message.level, 'message': message.message, 'tags': message.tags} for message in
+                        storage]
 
-    return JsonResponse({'error': 'Invalid request'}, status=400)
+        return JsonResponse({'messages': message_list}, status=200)
+
+    return JsonResponse({'error': 'Neplatný požadavek.'}, status=400)
 
 def cart_view(request):
     # Získání aktuálního košíku

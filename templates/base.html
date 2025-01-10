@@ -43,12 +43,15 @@
     <main>
 
         {% if messages %}
-            <ul class="messages">
-            {% for message in messages %}
-            <li class="{{ message.tags }}">{{ message }}</li>
-            {% endfor %}
-            </ul>
+        <ul class="messages">
+        {% for message in messages %}
+            <li class="alert {{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+        {% else %}
+        <ul class="messages"></ul>
         {% endif %}
+
 
         <div class="levy-panel-1">
             <div>
@@ -120,6 +123,60 @@
     });
 
 </script>
+
+<script>
+function addToCart(event) {
+    console.log("Funkce spuštěna");
+
+    event.preventDefault();
+
+    const form = document.getElementById('add-to-cart-form');
+    const productId = form.getAttribute('data-product-id');
+    console.log("Product ID:", productId);
+
+    fetch(`/users/add-to-cart/${productId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value,
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        const messagesContainer = document.querySelector('.messages');
+        if (messagesContainer) {
+            messagesContainer.innerHTML = ''; // Vyčištění starých zpráv
+
+            if (data.messages) {
+                data.messages.forEach(msg => {
+                    const messageDiv = document.createElement('li');
+                    messageDiv.className = `alert ${msg.tags}`;
+                    messageDiv.textContent = msg.message;
+                    messagesContainer.appendChild(messageDiv);
+                });
+
+                // Přidání přechodu
+                setTimeout(() => {
+                    messagesContainer.style.transition = 'opacity 0.5s ease';
+                    messagesContainer.style.opacity = '0';
+
+                    // Odstranění po přechodu
+                    setTimeout(() => {
+                        messagesContainer.innerHTML = '';
+                        messagesContainer.style.opacity = '1'; // Obnovení opacity pro další zprávy
+                    }, 500); // Čas přechodu
+                }, 3000);
+            }
+        }
+    })
+    .catch(error => {
+        console.error('Chyba:', error);
+    });
+}
+
+
+</script>
+
 
 {% block extra_scripts %}
 {% endblock %}
