@@ -1,8 +1,8 @@
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect
 from django.contrib import messages
-
+from .forms import CustomUserCreationForm  # Importuj vlastní registrační formulář
 
 def login_view(request):
     if request.method == 'POST':
@@ -17,16 +17,16 @@ def login_view(request):
     return render(request, 'login.html', {'form': form})
 
 def register_view(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+    if request.method == "POST":
+        form = CustomUserCreationForm(request.POST)  # Použij vlastní registrační formulář
         if form.is_valid():
             user = form.save()
             login(request, user)
-            messages.success(request, 'Úspěšně jste se zaregistrovali!')
+            messages.success(request, "Úspěšně jste se zaregistrovali!")
             return redirect('home')
     else:
-        form = UserCreationForm()
-    return render(request, 'register.html', {'form': form})
+        form = CustomUserCreationForm()
+    return render(request, "register.html", {"form": form})
 
 def logout_view(request):
     logout(request)
