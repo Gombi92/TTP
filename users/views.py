@@ -1,10 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404
 from .models import Cart, CartItem, Product
 from django.contrib import messages
 from django.contrib.messages import get_messages
+from ecommerce_project import views
+from django.contrib.auth import logout
 
 
 @login_required
@@ -76,17 +78,54 @@ def add_to_cart(request, product_id):
     return JsonResponse({'error': 'Neplatný požadavek.'}, status=400)
 
 def cart_view(request):
-    # Získání aktuálního košíku
-    cart = get_or_create_cart(request)
+    cart = get_or_create_cart(request)  # Funkce pro získání aktuálního košíku
+    cart_items = cart.items.all()  # Načtení všech položek v košíku
+    total_price = sum(item.total_price for item in cart_items)  # Výpočet celkové ceny
 
-    # Načtení položek v košíku
-    cart_items = CartItem.objects.filter(cart=cart)
-
-    # Spočítání celkové ceny
-    total_price = sum(item.product.sell_price for item in cart_items)
-
-    # Předání dat šabloně
-    return render(request, 'cart.html', {
+    context = {
         'cart_items': cart_items,
-        'total_price': total_price,
-    })
+        'total_price': total_price,  # Předání celkové ceny do šablony
+    }
+    print(f"Cart Items: {cart_items}")
+    print(f"Total Price: {total_price}")
+
+    return render(request, template_name='cart.html', context=context)
+
+
+def remove_from_cart(request, product_id):
+    if request.method == "POST":
+        cart = get_or_create_cart(request)
+        cart_item = CartItem.objects.filter(cart=cart, product_id=product_id).first()
+
+        if cart_item:
+            cart_item.delete()
+            messages.success(request, f"Produkt byl úspěšně odebrán z košíku.")
+        else:
+            messages.error(request, f"Produkt nebyl nalezen v košíku.")
+        return redirect('cart')
+    return JsonResponse({'error': 'Neplatný požadavek.'}, status=400)
+
+
+def home(request):
+    return render(request, 'home.html')
+
+def login_view(request):
+    return render(request, 'login.html')
+
+def register_view(request):
+    return render(request, 'register.html')
+
+def about(request):
+    return render(request, 'about.html')
+
+def contact(request):
+    return render(request, 'contact.html')
+
+def logout_view(request):
+    logout(request)
+    messages.success(request, 'Úspěšně jste se odhlásili!')
+    return redirect('home')
+
+def cart(request):
+    # Můžete přidat logiku pro zobrazení košíku, pokud máte session nebo databázi
+    return render(request, 'cart.html')

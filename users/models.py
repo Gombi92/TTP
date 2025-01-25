@@ -14,9 +14,14 @@ class Cart(models.Model):
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='cart_items')
-    size = models.CharField(max_length=3, choices=Product.SIZE_CHOICES, null=True, blank=True)  # Pro výběr velikosti
+    size = models.CharField(max_length=3, choices=Product.SIZE_CHOICES, null=True, blank=True)
+    quantity = models.PositiveIntegerField(default=1)
+
+    @property
+    def total_price(self):
+        """Vypočítá celkovou cenu položky v košíku."""
+        return self.product.sell_price * self.quantity
 
     def __str__(self):
         size_info = f" (Size: {self.size})" if self.size else ""
         return f"{self.product.name}{size_info}"
-

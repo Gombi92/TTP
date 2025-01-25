@@ -93,8 +93,11 @@
 
         <div class="pravy-panel">
             {% if user.is_authenticated %}
-                <h3>Jste přihlášen jako: {{ user.username }}!</h3>
-                <a href="{% url 'user_profile' user.id %}">Můj účet</a>
+                <div>
+                    <div class="pravy-panel-box">Jste přihlášen jako: {{ user.username }}!</div>
+                    <a href="{% url 'user_profile' user.id %}" class="btn-pp1">Můj účet</a>
+                    <a href="/users/cart/" class="btn-pp1">Můj košík</a>
+                </div>
             {% else %}
                 <h3>Nejste přihlášen.</h3>
             {% endif %}

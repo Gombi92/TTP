@@ -3,6 +3,9 @@ from django.urls import path, include
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
+from users import views
+from ecommerce_project import views
+from users import views
 
 
 urlpatterns = [
@@ -15,6 +18,11 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('logout/', views.logout_view, name='logout'),
     path('users/', include('users.urls')),
+    path('remove_from_cart/<int:product_id>/', views.remove_from_cart, name='remove_from_cart'),
+    path('users/cart/', views.cart, name='cart'),
+    path('cart/', views.cart_view, name='cart'),
+    path('add_to_cart/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
+
 
 
 
