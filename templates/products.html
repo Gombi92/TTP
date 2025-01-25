@@ -5,6 +5,23 @@
 
 {% block content %}
 <div class="main-top-box">
+
+    <div style="padding-left: 6px" class="pagination1">
+    {% if products.has_previous %}
+        <a href="?page=1" class="pagination-link">První</a>
+        <a href="?page={{ products.previous_page_number }}" class="pagination-link">Předchozí</a>
+    {% endif %}
+
+    <span class="current-page">
+        Stránka {{ products.number }} z {{ products.paginator.num_pages }}
+    </span>
+
+    {% if products.has_next %}
+        <a href="?page={{ products.next_page_number }}" class="pagination-link">Další</a>
+        <a href="?page={{ products.paginator.num_pages }}" class="pagination-link">Poslední</a>
+    {% endif %}
+    </div>
+
     <div class="style-switcher">
         <img id="style1-icon" src="{% static 'images/icon1.png' %}" alt="Styl 1" class="style-icon">
         <img id="style2-icon" src="{% static 'images/icon2.png' %}" alt="Styl 2" class="style-icon">
@@ -13,8 +30,6 @@
 
 <div id="products-container">
     {% for product in products %}
-
-
         <div class="item1">
             <a href="{% url 'product_detail' product.id %}" style="text-decoration: none; color: inherit;">
                 <div class="product-name">
@@ -26,10 +41,26 @@
                 <div class="product-price">{{ product.sell_price }},-Kč</div>
             </a>
         </div>
-
-            {% empty %}
-                <p>Žádné produkty nebyly nalezeny.</p>
+    {% empty %}
+        <p>Žádné produkty nebyly nalezeny.</p>
     {% endfor %}
+</div>
+
+<!-- Sekce pro stránkování -->
+<div style="padding-left: 6px" class="pagination2">
+    {% if products.has_previous %}
+        <a href="?page=1" class="pagination-link">První</a>
+        <a href="?page={{ products.previous_page_number }}" class="pagination-link">Předchozí</a>
+    {% endif %}
+
+    <span class="current-page">
+        Stránka {{ products.number }} z {{ products.paginator.num_pages }}
+    </span>
+
+    {% if products.has_next %}
+        <a href="?page={{ products.next_page_number }}" class="pagination-link">Další</a>
+        <a href="?page={{ products.paginator.num_pages }}" class="pagination-link">Poslední</a>
+    {% endif %}
 </div>
 {% endblock %}
 
@@ -61,7 +92,4 @@
         });
     });
 </script>
-
-
-
 {% endblock %}

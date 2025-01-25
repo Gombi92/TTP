@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Category, Subcategory, Product
+from django.core.paginator import Paginator
 
 def home(request):
     return render(request, 'home.html')
@@ -12,20 +13,25 @@ def products(request):
     if category_id and subcategory_id:
         # Filtrovat podle kategorie i podkategorie
         subcategories = Subcategory.objects.filter(category_id=category_id)
-        products = Product.objects.filter(subcategory_id=subcategory_id)
+        product_list = Product.objects.filter(subcategory_id=subcategory_id)
     elif category_id:
         # Pokud je vybraná pouze kategorie, zobrazit všechny produkty z této kategorie
         subcategories = Subcategory.objects.filter(category_id=category_id)
-        products = Product.objects.filter(subcategory__category_id=category_id)
+        product_list = Product.objects.filter(subcategory__category_id=category_id)
     else:
         # Pokud není vybraná žádná kategorie ani podkategorie, zobrazit vše
         subcategories = Subcategory.objects.none()
-        products = Product.objects.all()
+        product_list = Product.objects.all()
+
+    # Nastavení stránkování - 35 produktů na stránku
+    paginator = Paginator(product_list, 35)
+    page_number = request.GET.get('page')  # Získání čísla stránky z URL
+    page_obj = paginator.get_page(page_number)  # Získání objektu stránky
 
     return render(request, 'products.html', {
         'categories': categories,
         'subcategories': subcategories,
-        'products': products,
+        'products': page_obj,  # Přidáme `page_obj` místo seznamu produktů
         'selected_category_id': int(category_id) if category_id else None,  # Přidá aktuální ID kategorie
         'selected_subcategory_id': int(subcategory_id) if subcategory_id else None,  # Přidá aktuální ID podkategorie
     })
