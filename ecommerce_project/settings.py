@@ -90,7 +90,7 @@ DATABASES = {
     }
 }
 
-
+#Pracuji v lokálním prostředí, nejsem připojená přes server.
 
 
 # Password validation

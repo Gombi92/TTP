@@ -4,24 +4,24 @@
 
 body,html{
     margin: 0;
-    
+
 }
 
 body {
-    
+
     background-image: url("static/images/background_img1.jpg");
-    
+
 }
 
 header {
-    display: flex;  
+    display: flex;
     align-items: center;
     flex-wrap: wrap;
     flex-direction: row;
     background-color: #007BFF;
     color: #FFFFFF;
     width: 100%;
-    position: fixed; 
+    position: fixed;
     height: 65px;
     top: 0;
     border-bottom: 2px solid black;
@@ -33,7 +33,7 @@ header {
     display: flex;
     align-items: center;
     width: 100%;
-    
+
 }
 
 .img1 {
@@ -43,7 +43,7 @@ header {
     border-right: 2px solid black;
     border-left: 2px solid black;
     border-bottom: 2px solid black;
-   
+
 }
 
 main {
@@ -69,7 +69,7 @@ footer {
     width: 100%;
     height: 18px;
     border-top: 2px solid black;
-    
+
 }
 
 
@@ -84,7 +84,7 @@ footer {
     border: 2px solid black ;
     left: 0;
     flex-direction: column;
-    
+
 }
 
 .levy-panel-2 {
@@ -98,8 +98,8 @@ footer {
     border: 2px solid black ;
     flex-direction: column;
     left: 108px;
-    
-    
+
+
 }
 
 .main-panel {
@@ -109,12 +109,12 @@ footer {
     position: fixed;
     margin: 3px;
     top: 65px;
-    
+
     right: 179px;
     left: 214px;
     border: 2px solid black ;
     overflow-y: auto;
-    
+
     justify-content: center;
 }
 
@@ -140,10 +140,10 @@ footer {
     margin-right: auto;
     height: 40px;
     margin-left: 10px;
-    
-    
-    
-    
+
+
+
+
 }
 
 .btn-cont2{
@@ -152,10 +152,10 @@ footer {
     background-color: #007BFF;
     margin-right: 7px;
     margin-bottom: 5px;
-    
 
-    
-    
+
+
+
 }
 
 .btn-1 {
@@ -187,11 +187,11 @@ footer {
     padding-right: 6px;
     margin: 2.5px;
     border-radius:10px;
-    
-    
+
+
 }
 .btn-2:hover {
-    
+
     color: white;
     background-color: #2453e0;
   }

@@ -4,24 +4,24 @@
 
 body,html{
     margin: 0;
-    
+
 }
 
 body {
-    
+
     background-image: url("static/images/background_img1.jpg");
-    
+
 }
 
 header {
-    display: flex;  
+    display: flex;
     align-items: center;
     flex-wrap: wrap;
     flex-direction: row;
     background-color: #2E2E2E;
     color: #FFFFFF;
     width: 100%;
-    position: fixed; 
+    position: fixed;
     height: 65px;
     top: 0;
     border-bottom: 2px solid black;
@@ -34,7 +34,7 @@ header {
     align-items: center;
     width: 100%;
 
-    
+
 }
 
 .img1 {
@@ -45,7 +45,7 @@ header {
     border-left: 2px solid black;
     border-bottom: 2px solid black;
     transition: opacity 0.3s ease;
-   
+
 }
 
 
@@ -290,7 +290,7 @@ footer {
     flex-direction: row;
     margin-right: auto;
     height: 40px;
-    margin-left: 10px;    
+    margin-left: 10px;
 }
 
 .btn-cont2{
@@ -334,7 +334,7 @@ footer {
     border-radius:10px;
 }
 .btn-2:hover {
-    
+
     color: white;
     background-color: #2E2E2E;
   }
@@ -467,3 +467,26 @@ h4{
 }
 
 
+/* Stylování pro stránku „O nás“ */
+.about-container {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 800px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.about-container h1 {
+    color: #2e2e2e;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.about-container p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    color: #333;
+}
