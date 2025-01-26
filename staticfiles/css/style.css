@@ -372,10 +372,10 @@ footer {
     color: #FFFFFF;
     border: 1px solid white;
     padding: 2px;
-    padding-left: 6px;
-    padding-right: 6px;
     margin: 2.5px;
     border-radius:10px;
+    margin-right: 40px;
+    width: 100px;
 }
 
 .btn-3:hover {
@@ -593,7 +593,6 @@ form {
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #f9f9f9;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border: 2px solid #2E2E2E;
@@ -701,4 +700,9 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border: 2px solid #2E2E2E;
+}
+
+.logout-form1{
+    display: inline;
+
 }
