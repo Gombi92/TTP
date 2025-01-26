@@ -5,8 +5,14 @@ from django.shortcuts import get_object_or_404
 from .models import Cart, CartItem, Product
 from django.contrib import messages
 from django.contrib.messages import get_messages
-from ecommerce_project import views
 from django.contrib.auth import logout
+from .forms import LoginForm
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from .forms import UserForm
+from django.contrib.auth.forms import UserCreationForm
+from django import forms
+
 
 
 @login_required
@@ -109,14 +115,31 @@ def remove_from_cart(request, product_id):
 def home(request):
     return render(request, 'home.html')
 
+
 def login_view(request):
-    return render(request, 'login.html')
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
 
-def register_view(request):
-    return render(request, 'register.html')
+            try:
+                # Najdeme uživatele podle e-mailu
+                user = User.objects.get(email=email)
+                # Ověříme přihlašovací údaje
+                authenticated_user = authenticate(request, username=user.username, password=password)
+                if authenticated_user is not None:
+                    login(request, authenticated_user)
+                    return redirect('home')  # Přesměrujte na domovskou stránku nebo jinam
+                else:
+                    form.add_error(None, "Špatný e-mail nebo heslo")
+            except User.DoesNotExist:
+                form.add_error(None, "Uživatel s tímto e-mailem neexistuje")
+    else:
+        form = LoginForm()
 
-def about(request):
-    return render(request, 'about.html')
+    return render(request, 'login.html', {'form': form})
+
 
 def contact(request):
     return render(request, 'contact.html')
@@ -129,3 +152,41 @@ def logout_view(request):
 def cart(request):
     # Můžete přidat logiku pro zobrazení košíku, pokud máte session nebo databázi
     return render(request, 'cart.html')
+
+def user_form_view(request):
+    # Zpracování POST požadavku (odeslání formuláře)
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        if form.is_valid():
+            form.save()  # Uložení validních dat do databáze
+            messages.success(request, "Formulář byl úspěšně odeslán.")
+            return redirect('success')
+    else:
+        form = UserForm()  # Vytvoření prázdného formuláře pro GET požadavek
+
+    # Vykreslení šablony s formulářem
+    return render(request, 'register.html', {'form': form})
+
+
+def about(request):
+    return render(request, 'about.html')
+
+def register_view(request):
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, 'Úspěšně jste se zaregistrovali!')
+            return redirect('home')
+    else:
+        form = UserForm()
+    return render(request, 'register.html', {'form': form})
+
+class CustomUserCreationForm(UserCreationForm):
+    first_name = forms.CharField(max_length=30, required=True, label='Jméno')
+    last_name = forms.CharField(max_length=30, required=True, label='Příjmení')
+
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']

@@ -6,6 +6,8 @@ from django.conf.urls.static import static
 from users import views
 from ecommerce_project import views
 from users import views
+from django.contrib.auth import views as auth_views
+from users.views import register_view
 
 
 urlpatterns = [
@@ -22,6 +24,11 @@ urlpatterns = [
     path('users/cart/', views.cart, name='cart'),
     path('cart/', views.cart_view, name='cart'),
     path('add_to_cart/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
+    path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
+    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    path('register/', register_view, name='user_form'),
 
 
 

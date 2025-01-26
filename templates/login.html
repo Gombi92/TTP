@@ -3,16 +3,15 @@
 {% block title %}Přihlášení | GMart{% endblock %}
 
 {% block content %}
-<div class="form-wrapper">
-    <div class="form-container">
-        <h2 class="text-center">Přihlašovací stránka</h2>
+<div class="container mt-5">
+        <h2 class="text-center">Přihlášení</h2>
         <form method="POST">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Přihlásit se</button>
+            <button type="submit" class="btn btn-primary w-100">Přihlásit se</button>
         </form>
-        <p class="text-center mt-3">Nemáte účet? <a href="{% url 'register' %}">Zaregistrujte se zde</a>.</p>
-        <p class="text-center mt-1">Zapomněli jste heslo? <a href="{% url 'password_reset' %}">Obnovte ho zde</a>.</p>
+        <p class="mt-3 text-center">
+            Nemáte účet? <a href="{% url 'register' %}">Zaregistrujte se</a>
+        </p>
     </div>
-</div>
 {% endblock %}
