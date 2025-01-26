@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from products.models import Product
 from django.conf import settings
+from .managers import CustomUserManager
+
 
 class Cart(models.Model):
     user = models.OneToOneField(
@@ -49,11 +51,13 @@ class CustomUser(AbstractUser):
     )
 
     # Nastavení e-mailu jako hlavního přihlašovacího pole
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []  # Pole, která budou vyžadována při vytváření uživatele přes manage.py createsuperuser
+    USERNAME_FIELD = 'email'  # Přihlášení přes e-mail
+    REQUIRED_FIELDS = ['username']  # Další povinné pole
+
+    objects = CustomUserManager()
 
     def __str__(self):
-        return self.email  # Vrátí e-mail při výpisu uživatele
+        return self.email
 
 class UserFormSubmission(models.Model):
     GENDER_CHOICES = [

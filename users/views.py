@@ -63,20 +63,28 @@ def get_or_create_cart(request):
 
     return cart
 def add_to_cart(request, product_id):
-
     if request.method == "POST":
         # Načtení produktu nebo vyvolání chyby 404, pokud neexistuje
         product = get_object_or_404(Product, id=product_id)
+        if product.available:  # Zkontroluje, zda je produkt dostupný
+            # Získání nebo vytvoření košíku pomocí funkce get_or_create_cart
+            cart = get_or_create_cart(request)
 
-        # Získání nebo vytvoření košíku pomocí funkce get_or_create_cart
-        cart = get_or_create_cart(request)
+            # Přidání položky do košíku nebo zvýšení jejího množství
+            cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
+            if not created:
+                cart_item.quantity += 1
+                cart_item.save()
+                messages.warning(request, f"Produkt '{product.name}' již byl v košíku. Zvýšeno množství.")
+            else:
+                messages.success(request, f"Produkt '{product.name}' byl úspěšně přidán do košíku.")
 
-        # Přidání položky do košíku
-        cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
-        if not created:
-            messages.warning(request, f"Produkt '{product.name}' je již v košíku.")
+            # Označení produktu jako nedostupného
+            product.available = False
+            product.save()
+
         else:
-            messages.success(request, f"Produkt '{product.name}' byl úspěšně přidán do košíku.")
+            messages.error(request, f"Produkt '{product.name}' není dostupný.")
 
         # Získání zpráv z Django messages a vrácení v JSON odpovědi
         storage = get_messages(request)
@@ -104,18 +112,29 @@ def cart_view(request):
 
 def remove_from_cart(request, product_id):
     if request.method == "POST":
+        # Získání aktuálního košíku
         cart = get_or_create_cart(request)
+
+        # Načtení položky v košíku
         cart_item = CartItem.objects.filter(cart=cart, product_id=product_id).first()
 
         if cart_item:
+            # Obnovení dostupnosti produktu
+            product = cart_item.product
+            product.available = True
+            product.save()
+
+            # Smazání položky z košíku
             cart_item.delete()
-            messages.success(request, f"Produkt byl úspěšně odebrán z košíku.")
+            messages.success(request, f"Produkt '{product.name}' byl úspěšně odebrán z košíku.")
         else:
             messages.error(request, f"Produkt nebyl nalezen v košíku.")
-        return redirect('cart')
+
+        # Přesměrování zpět do košíku nebo jinam podle potřeby
+        return redirect('cart')  # Předpokládá se, že máte stránku košíku s názvem 'cart'
+
+    # Chybný požadavek
     return JsonResponse({'error': 'Neplatný požadavek.'}, status=400)
-
-
 def home(request):
     return render(request, 'home.html')
 
@@ -138,7 +157,7 @@ def login_view(request):
     else:
         form = LoginForm()
 
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'login.html', {'form': LoginForm()})
 
 def contact(request):
     return render(request, 'contact.html')

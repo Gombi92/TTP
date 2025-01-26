@@ -32,6 +32,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to='products/', default='products/default.jpg')
     size = models.CharField(max_length=3, choices=SIZE_CHOICES, null=True, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    available = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
