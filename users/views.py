@@ -1,17 +1,20 @@
-from django.shortcuts import render, redirect
+
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404
 from .models import Cart, CartItem, Product
-from django.contrib import messages
 from django.contrib.messages import get_messages
 from django.contrib.auth import logout
 from .forms import LoginForm
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
 from .forms import UserForm
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from django.contrib.auth import authenticate, login, get_user_model
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.db import IntegrityError
+
+
 
 
 
@@ -38,26 +41,27 @@ def user_profile(request, user_id):
 
 def get_or_create_cart(request):
     """
-    Pomocná funkce pro získání nebo vytvoření košíku.
-    Rozlišuje přihlášeného a nepřihlášeného uživatele.
+    Získá existující košík nebo vytvoří nový.
     """
     if request.user.is_authenticated:
-        # Pokud je uživatel přihlášen, použijeme jeho uživatelské ID
-        cart, _ = Cart.objects.get_or_create(user=request.user)
+        # Zkontrolujeme, zda již košík pro uživatele existuje
+        cart = Cart.objects.filter(user=request.user).first()
+        if not cart:
+            try:
+                cart = Cart.objects.create(user=request.user)
+            except IntegrityError:
+                # Pokud došlo k duplicitě, načteme existující košík
+                cart = Cart.objects.filter(user=request.user).first()
     else:
-        # Pokud není přihlášen, použijeme session pro uložení košíku
+        # Správa košíku pro nepřihlášené uživatele pomocí session
         cart_id = request.session.get('cart_id')
-        if not cart_id:
-            # Pokud session neobsahuje košík, vytvoříme nový
+        if cart_id:
+            cart = get_object_or_404(Cart, id=cart_id)
+        else:
             cart = Cart.objects.create()
             request.session['cart_id'] = cart.id
-        else:
-            # Pokud košík existuje v session, načteme ho
-            cart = get_object_or_404(Cart, id=cart_id)
 
     return cart
-
-
 def add_to_cart(request, product_id):
 
     if request.method == "POST":
@@ -120,26 +124,21 @@ def login_view(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            email = form.cleaned_data['email']
-            password = form.cleaned_data['password']
+            email = form.cleaned_data.get('email')
+            password = form.cleaned_data.get('password')
 
-            try:
-                # Najdeme uživatele podle e-mailu
-                user = User.objects.get(email=email)
-                # Ověříme přihlašovací údaje
-                authenticated_user = authenticate(request, username=user.username, password=password)
-                if authenticated_user is not None:
-                    login(request, authenticated_user)
-                    return redirect('home')  # Přesměrujte na domovskou stránku nebo jinam
-                else:
-                    form.add_error(None, "Špatný e-mail nebo heslo")
-            except User.DoesNotExist:
-                form.add_error(None, "Uživatel s tímto e-mailem neexistuje")
+            # Autentizace uživatele podle e-mailu
+            authenticated_user = authenticate(request=request, username=email, password=password)
+            if authenticated_user is not None:
+                login(request, authenticated_user)
+                messages.success(request, "Úspěšně jste se přihlásili!")
+                return redirect('home')
+            else:
+                form.add_error(None, "Špatný e-mail nebo heslo")
     else:
         form = LoginForm()
 
     return render(request, 'login.html', {'form': form})
-
 
 def contact(request):
     return render(request, 'contact.html')
@@ -188,5 +187,5 @@ class CustomUserCreationForm(UserCreationForm):
     last_name = forms.CharField(max_length=30, required=True, label='Příjmení')
 
     class Meta:
-        model = User
+        model = get_user_model()
         fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']

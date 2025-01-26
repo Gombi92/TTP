@@ -1,5 +1,9 @@
+
+
 * {
     box-sizing: border-box;
+
+
   }
 
 body,html{
@@ -45,7 +49,7 @@ header {
     border-left: 2px solid black;
     border-bottom: 2px solid black;
     transition: opacity 0.3s ease;
-   
+
 }
 
 
@@ -129,6 +133,7 @@ footer {
 .btn-pp1:hover {
     background-color: #525252;
 }
+
 
 
 .btn-lp1{
@@ -320,15 +325,24 @@ footer {
     flex-direction: row;
     margin-right: auto;
     height: 40px;
-    margin-left: 10px;    
+    margin-left: 10px;
+
+
 }
 
 .btn-cont2{
     display: flex;
     flex-direction: column;
-
     margin-right: 7px;
     margin-bottom: 5px;
+}
+
+.btn3-cont{
+    position: relative;
+    flex-direction: column;
+    display: flex;
+    margin: 0;
+    padding: 0;
 }
 
 .btn-1{
@@ -350,6 +364,25 @@ footer {
 .btn-1:active {
     border: 2px solid white ;
 }
+
+.btn-3 {
+    text-decoration: none;
+    font-size: 1rem;
+    background-color: #525252;
+    color: #FFFFFF;
+    border: 1px solid white;
+    padding: 2px;
+    padding-left: 6px;
+    padding-right: 6px;
+    margin: 2.5px;
+    border-radius:10px;
+}
+
+.btn-3:hover {
+
+    color: white;
+    background-color: #2E2E2E;
+  }
 
 .btn-2 {
     text-decoration: none;

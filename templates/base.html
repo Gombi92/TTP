@@ -26,15 +26,19 @@
                 <a class="btn-1 {% if request.path == '/about/' %}active{% endif %}" href="{% url 'about' %}">O nás</a>
             </div>
 
-            <div class="btn-cont2">
+            <div>
                 {% if user.is_authenticated %}
                     <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: inline;">
                         {% csrf_token %}
-                        <button type="submit" class="btn-2">Odhlášení</button>
+                        <div class="btn3-cont">
+                        <button type="submit" class="btn-3">Odhlášení</button>
+                        </div>
                     </form>
                 {% else %}
+                <div class="btn-cont2" >
                     <a class="btn-2" href="{% url 'login' %}">Přihlášení</a>
                     <a class="btn-2" href="{% url 'register' %}">Registrace</a>
+                </div>
                 {% endif %}
             </div>
         </div>

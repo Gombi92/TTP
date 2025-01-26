@@ -1,7 +1,7 @@
 from .models import Cart
 
 from users.models import Cart
-
+from django.db import IntegrityError
 
 class CartMiddleware:
     def __init__(self, get_response):
@@ -9,20 +9,28 @@ class CartMiddleware:
 
     def __call__(self, request):
         if request.user.is_authenticated:
-            # Přihlášený uživatel: získejte nebo vytvořte Cart
-            cart, created = Cart.objects.get_or_create(user=request.user)
+            try:
+                # Odstraňte duplicitní košíky, pokud existují
+                carts = Cart.objects.filter(user=request.user)
+                if carts.count() > 1:
+                    carts.exclude(id=carts.first().id).delete()
 
-            # Pokud má uživatel anonymní košík, přesuňte jej do jeho účtu
-            session_cart_id = request.session.pop('cart_id', None)
-            if session_cart_id:
-                session_cart = Cart.objects.filter(id=session_cart_id).first()
-                if session_cart:
-                    # Přeneste obsah session cart (případně další logika)
-                    session_cart.user = request.user
-                    session_cart.save()
-                    cart = session_cart  # Nastavte přenesený cart jako aktivní
+                # Získejte nebo vytvořte jedinečný košík
+                cart, created = Cart.objects.get_or_create(user=request.user)
 
-            request.cart = cart
+                # Přesuňte anonymní košík do přihlášeného uživatele
+                session_cart_id = request.session.pop('cart_id', None)
+                if session_cart_id:
+                    session_cart = Cart.objects.filter(id=session_cart_id).first()
+                    if session_cart and session_cart != cart:
+                        session_cart.user = request.user
+                        session_cart.save()
+                        cart = session_cart
+
+                request.cart = cart
+            except IntegrityError:
+                # Pokud dojde k chybě integrity, načtěte existující košík
+                request.cart = Cart.objects.filter(user=request.user).first()
         else:
             # Nepřihlášený uživatel: používejte session cart
             cart_id = request.session.get('cart_id')
